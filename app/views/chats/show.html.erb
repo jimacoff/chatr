@@ -21,7 +21,6 @@
   var pusher = new Pusher('<%= ENV["PUSHER_KEY"] %>');
   var channel = pusher.subscribe('chatr_channel_<%= @chat.id %>');
   channel.bind('new_message', function(data) {
-      console.log(data);
     var messages = $("#messages");
 
     var insert_div = '<div class="message" id="message_' + data.id + '"><span class="user">' + data.user + ': </span><span class="body">' + data.body + '</span> <span class="time">(' + data.time_ago_in_words + ' ago)</span></div>';
