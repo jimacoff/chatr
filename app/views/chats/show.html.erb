@@ -28,5 +28,7 @@
     var insert_div = '<div class="message" id="message_' + data.id + '"><span class="user">' + data.user + ': </span><span class="body">' + data.body + '</span> <span class="time">(' + data.time_ago_in_words + ' ago)</span></div>';
 
     messages.append(insert_div);
+
+    $('html, body').animate({scrollTop:$(document).height()}, 'slow');
   }
 </script>

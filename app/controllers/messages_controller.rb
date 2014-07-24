@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
 
     Pusher.url = ENV['PUSHER_URL']
 
-    @data = {
+    data = {
       id: "#{@message.id}",
       user: "#{current_user.email}",
       body: "#{@message.body}",
@@ -19,7 +19,7 @@ class MessagesController < ApplicationController
 
     Pusher["chatr_channel_#{@chat.id}"].trigger(
       "new_message",
-      @data
+      data
     )
   end
 
