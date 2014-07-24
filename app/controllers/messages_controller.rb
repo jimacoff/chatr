@@ -5,6 +5,16 @@ class MessagesController < ApplicationController
     @message.chat = @chat
 
     if current_user.messages << @message
+      Pusher.url = ENV['PUSHER_URL']
+
+      Pusher["chatr_channel_#{@chat.id}"].trigger(
+        "new_message",
+        id: "#{@message.id}",
+        user: "#{current_user.email}",
+        body: "#{@message.body}",
+        time_ago_in_words: "#{@message.created_at}"
+      )
+
       redirect_to @chat
     else
       render "chats/show"
