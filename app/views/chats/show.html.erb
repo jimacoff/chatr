@@ -4,7 +4,7 @@
   <%= render @chat.messages %>
 </div>
 
-<%= form_for [@chat, @message] do |form| %>
+<%= form_for([@chat, @message], remote: true) do |form| %>
   <%= form.text_field :body %>
   <%= form.submit "Send" %>
 <% end %>
@@ -20,11 +20,13 @@
 
   var pusher = new Pusher('<%= ENV["PUSHER_KEY"] %>');
   var channel = pusher.subscribe('chatr_channel_<%= @chat.id %>');
-  channel.bind('new_message', function(data) {
+  channel.bind('new_message', appendMessage);
+
+  function appendMessage(data) {
     var messages = $("#messages");
 
     var insert_div = '<div class="message" id="message_' + data.id + '"><span class="user">' + data.user + ': </span><span class="body">' + data.body + '</span> <span class="time">(' + data.time_ago_in_words + ' ago)</span></div>';
 
     messages.append(insert_div);
-  });
+  }
 </script>

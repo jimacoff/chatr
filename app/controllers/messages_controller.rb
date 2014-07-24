@@ -6,21 +6,21 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     @message.chat = @chat
 
-    if current_user.messages << @message
-      Pusher.url = ENV['PUSHER_URL']
+    current_user.messages << @message
 
-      Pusher["chatr_channel_#{@chat.id}"].trigger(
-        "new_message",
-        id: "#{@message.id}",
-        user: "#{current_user.email}",
-        body: "#{@message.body}",
-        time_ago_in_words: "#{time_ago_in_words(@message.created_at)}"
-      )
+    Pusher.url = ENV['PUSHER_URL']
 
-      redirect_to @chat
-    else
-      render "chats/show"
-    end
+    @data = {
+      id: "#{@message.id}",
+      user: "#{current_user.email}",
+      body: "#{@message.body}",
+      time_ago_in_words: "#{time_ago_in_words(@message.created_at)}"
+    }
+
+    Pusher["chatr_channel_#{@chat.id}"].trigger(
+      "new_message",
+      @data
+    )
   end
 
   private
