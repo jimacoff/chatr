@@ -1,5 +1,5 @@
-<li>
-  <em><%= message.user.email %>: </em>
-  <%= message.body %>
-  (<%= time_ago_in_words(message.created_at) %> ago)
-</li>
+<%= div_for message do %>
+  <span class="user"><%= message.user.email %>: </span>
+  <span class="body"><%= message.body %></span>
+  <span class="time">(<%= time_ago_in_words(message.created_at) %> ago)</span>
+<% end %>

@@ -1,9 +1,7 @@
 <h1><%= @chat.title %></h1>
 
 <div id="messages">
-  <ul>
-    <%= render @chat.messages %>
-  </ul>
+  <%= render @chat.messages %>
 </div>
 
 <%= form_for [@chat, @message] do |form| %>
@@ -11,3 +9,23 @@
   <%= form.submit "Send" %>
 <% end %>
 
+<script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  // Enable pusher logging - don't include this in production
+  Pusher.log = function(message) {
+    if (window.console && window.console.log) {
+      window.console.log(message);
+    }
+  };
+
+  var pusher = new Pusher('<%= ENV["PUSHER_KEY"] %>');
+  var channel = pusher.subscribe('chatr_channel_<%= @chat.id %>');
+  channel.bind('new_message', function(data) {
+      console.log(data);
+    var messages = $("#messages");
+
+    var insert_div = '<div class="message" id="message_' + data.id + '"><span class="user">' + data.user + ': </span><span class="body">' + data.body + '</span> <span class="time">(' + data.time_ago_in_words + ' ago)</span></div>';
+
+    messages.append(insert_div);
+  });
+</script>
