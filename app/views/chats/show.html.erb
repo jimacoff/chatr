@@ -1,13 +1,12 @@
-<h1><%= @chat.title %></h1>
-
 <div id="messages">
   <%= render @chat.messages %>
 </div>
 
-<%= form_for([@chat, @message], remote: true) do |form| %>
-  <%= form.text_field :body %>
-  <%= form.submit "Send" %>
-<% end %>
+<div id="chat_footer">
+  <%= form_for([@chat, @message], remote: true) do |form| %>
+    <%= form.text_field :body, placeholder: "Type your message here..." %>
+  <% end %>
+</div>
 
 <script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
 <script type="text/javascript">

@@ -7,11 +7,22 @@ body {
   font-size: 1.2em;
   font-family: sans-serif;
   margin: 0;
+  background-color: #DDD;
+}
+
+#header {
+  text-align: right;
+  width: calc(100% - 16px);
+  position: fixed;
+  top: 0;
+  margin: 0;
+  padding: 8px;
+  background-color: #999;
 }
 
 #container {
-  position: relative;
-  padding-bottom: 30px;
+  padding-top: 26px;
+  padding-bottom: 45px;
 }
 
 #messages {
@@ -33,11 +44,26 @@ body {
   font-style: italic;
 }
 
-#new_message {
+#chat_footer {
   width: 100%;
   position: fixed;
   bottom: 0;
   margin: 0;
-  padding: 10px;
+  padding: 0px;
   background-color: #999;
+  text-align: center;
+}
+
+#new_message {
+  font-size: 1.5em;
+  margin: 10px auto;
+}
+
+input#message_body {
+  width: 95%;
+  font-size: .6em;
+}
+
+#new_message input[type="submit"] {
+  font-size: .6em;
 }
