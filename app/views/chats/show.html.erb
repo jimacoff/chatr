@@ -6,3 +6,8 @@
   </ul>
 </div>
 
+<%= form_for [@chat, @message] do |form| %>
+  <%= form.text_field :body %>
+  <%= form.submit "Send" %>
+<% end %>
+
