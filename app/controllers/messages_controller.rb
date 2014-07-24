@@ -1,3 +1,5 @@
+include ActionView::Helpers::DateHelper
+
 class MessagesController < ApplicationController
   def create
     @chat = current_user.chats.find(params[:chat_id])
@@ -12,7 +14,7 @@ class MessagesController < ApplicationController
         id: "#{@message.id}",
         user: "#{current_user.email}",
         body: "#{@message.body}",
-        time_ago_in_words: "#{@message.created_at}"
+        time_ago_in_words: "#{time_ago_in_words(@message.created_at)}"
       )
 
       redirect_to @chat
