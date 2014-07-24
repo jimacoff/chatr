@@ -1,0 +1,5 @@
+<li>
+  <em><%= message.user.email %>: </em>
+  <%= message.body %>
+  (<%= time_ago_in_words(message.created_at) %> ago)
+</li>
