@@ -1,3 +1,5 @@
+require 'MessageSender'
+
 class MessagesController < ApplicationController
   def create
     @chat = current_user.chats.find(params[:chat_id])
@@ -6,19 +8,8 @@ class MessagesController < ApplicationController
 
     current_user.messages << @message
 
-    Pusher.url = ENV['PUSHER_URL']
+    MessageSender.new(@message).send
 
-    data = {
-      id: "#{@message.id}",
-      user: "#{current_user.email}",
-      body: "#{@message.body}",
-      time: "#{@message.created_at.strftime("%I:%M %p")}"
-    }
-
-    Pusher["chatr_channel_#{@chat.id}"].trigger(
-      "new_message",
-      data
-    )
   end
 
   private
