@@ -1,5 +1,3 @@
-include ActionView::Helpers::DateHelper
-
 class MessagesController < ApplicationController
   def create
     @chat = current_user.chats.find(params[:chat_id])
@@ -14,7 +12,7 @@ class MessagesController < ApplicationController
       id: "#{@message.id}",
       user: "#{current_user.email}",
       body: "#{@message.body}",
-      time_ago_in_words: "#{time_ago_in_words(@message.created_at)}"
+      time: "#{@message.created_at.strftime("%I:%M %p")}"
     }
 
     Pusher["chatr_channel_#{@chat.id}"].trigger(
