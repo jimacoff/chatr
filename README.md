@@ -1,7 +1,7 @@
 # Chatr
 
 Chatr is a web-based chat app, with realtime update functionality provided by
-Pusher.
+[Pusher](http://pusher.com/).
 
 ## Pusher Credentials
 
